@@ -1,0 +1,31 @@
+.hero {
+    background-color: #000080;
+    display: flex;
+    justify-content: center;
+}
+
+/* header styling */
+.title {
+    font-size: 24px;
+    color: white;
+    padding: 5px 10px;
+}
+
+/* form styling */
+.form-group {
+}
+
+/* form label styling */
+.form-group label {
+    font-weight: bold;
+}
+
+/* form label input */
+.form-group input {
+    display: block;
+}
+
+/* history section */
+.history {
+
+}
