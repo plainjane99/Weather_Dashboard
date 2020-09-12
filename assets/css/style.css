@@ -1,5 +1,11 @@
+:root {
+    --background-color: #000080;
+    --background-text: white;
+    --border-color: #bfbfbf;
+}
+
 .hero {
-    background-color: #000080;
+    background-color: var(--background-color);
     display: flex;
     justify-content: center;
 }
@@ -7,25 +13,66 @@
 /* header styling */
 .title {
     font-size: 24px;
-    color: white;
-    padding: 5px 10px;
+    color: var(--background-text);
+    margin: 0;
+    padding: 10px;
 }
 
-/* form styling */
-.form-group {
+/* left hand column */
+.left-column {
+    background-color: #e6e6e6;
 }
 
 /* form label styling */
 .form-group label {
     font-weight: bold;
+    margin-top: 8px;
 }
 
-/* form label input */
+/* input box styling */
 .form-group input {
+    border-radius: 3px;
+    border-color: var(--border-color);
+}
+
+/* make the search icon blue */
+.button {
+    background-color: var(--background-color);
+    color: var(--background-text);
+    border-radius: 3px;
+    border-style: solid;
+    border-color: transparent;
+    margin-left: -5px;
+}
+
+/* search box styling */
+.search-line {
     display: block;
 }
 
-/* history section */
-.history {
+/* history section styling */
+.history ul li {
+    border-color: var(--border-color);
+}
 
+/* today row */
+.today {
+    margin-top: 10px;
+}
+
+/* 5-day title */
+.five-day-title {
+    margin: 10px 0 5px 0;
+    justify-content: center;
+}
+
+/* 5-day forecast row */
+.five-day {
+    display: flex;
+}
+
+.single-day {
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+    color: var(--background-text);
 }

@@ -16,33 +16,103 @@
 
     <!--Two column format-->
     <main class="flex-row justify-space-between">
-        <!--left hand column: search form and history area-->
-        <div class="col-12 col-md-4">
-            <form>
-                <div class="form-group">
-                    <label>Search for a City:</label>
-                    <input/>
+        <div class="container ml-1">
+            <div class="row">
+                <!--left hand column: search form and history area-->
+                <div class="col-12 col-md-4 left-column">
+                    <form id="search-form" class="form-group">
+                        <div>
+                            <label>Search for a City:</label>
+                            <div class="search-line">
+                                <input id="city-input" type="text">
+                                <button class="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!--use a bootstrap list group-->
+                        <div id="city-history" class="mt-4 history">
+                            <ul class="list-group">
+                                <li class="list-group-item">This is a test</li>
+                            </ul>
+                        </div>
+                    </form>
                 </div>
 
-                <!--use a bootstrap card / list group-->
-                <div id="city-history" class="history">
-                    <p>This is a test</p>
+                <!--right hand column: today & 5-day forecast-->
+                <div class="col-12 col-md-8 right-column">
+                    <!--today card: see utilities example -->
+                    <div class="row today">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 id="city-name" class="card-title"></h4>
+                                    <p id="today-temp" class="card-text"></p>
+                                    <p class="card-text">Humidity</p>
+                                    <p class="card-text">Wind Speed</p>
+                                    <p class="card-text">UV Index</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row five-day-title">
+                        <h4>5-day Forecast</h4>
+                    </div>
+                    <div class="row d-flex justify-content-between">
+                        <!--5-day forecast-->
+                        <div class="col">
+                            <div class="card single-day">
+                                <div class="card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card single-day">
+                                <div class="card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card single-day">
+                                <div class="card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card single-day">
+                                <div class="card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card single-day">
+                                <div class="card-body">
+                                    <h5 class="card-title">Date</h5>
+                                    <p class="card-text">Temp</p>
+                                    <p class="card-text">Humidity</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>
-
+            </div>
         </div>
-
-        <!--right hand column: today & 5-day forecast-->
-        <div class="col-12 col-md-8">
-            <!--today card: see utilities example -->
-
-            <!--5-day forecast-->
-            <!--will need 5 columns-->
-
-        </div>
-
     </main>
 
+    <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" data-auto-replace-svg="nest"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
     <script src="./assets/js/script.js"></script>
 </body>
