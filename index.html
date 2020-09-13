@@ -20,6 +20,8 @@
             <div class="row">
                 <!--left hand column: search form and history area-->
                 <div class="col-12 col-md-4 left-column">
+
+                    <!--search section-->
                     <form id="search-form" class="form-group">
                         <div>
                             <label>Search for a City:</label>
@@ -31,9 +33,9 @@
                             </div>
                         </div>
 
-                        <!--use a bootstrap list group-->
-                        <div id="city-history" class="mt-4 history">
-                            <ul class="list-group">
+                        <!--search history section-->
+                        <div class="mt-4 history">
+                            <ul id="city-history" class="list-group">
                                 <li class="list-group-item">This is a test</li>
                             </ul>
                         </div>
@@ -42,6 +44,7 @@
 
                 <!--right hand column: today & 5-day forecast-->
                 <div class="col-12 col-md-8 right-column">
+
                     <!--today section-->
                     <div class="row today">
                         <div class="col-12">
@@ -64,53 +67,7 @@
                     <!--this is the title-->
                     <div id="forecast-title" class="row five-day-title"></div>
                     <!--these are forecast cards-->
-                    <div id="forecast-cards" class="row d-flex ml-0 justify-content-between">
-                        <!-- <div class="col-md card-wrapper">
-                            <div id="today-plus-1">
-                                <div class="card-body">
-                                    <h5 class="card-title"></h5>
-                                    <p class="card-text"></p>
-                                    <p class="card-text"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md card-wrapper">
-                            <div class="card single-day">
-                                <div class="card-body">
-                                    <h5 class="card-title">Date</h5>
-                                    <p class="card-text">Temp</p>
-                                    <p class="card-text">Humidity</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md card-wrapper">
-                            <div class="card single-day">
-                                <div class="card-body">
-                                    <h5 class="card-title">Date</h5>
-                                    <p class="card-text">Temp</p>
-                                    <p class="card-text">Humidity</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md card-wrapper">
-                            <div class="card single-day">
-                                <div class="card-body">
-                                    <h5 class="card-title">Date</h5>
-                                    <p class="card-text">Temp</p>
-                                    <p class="card-text">Humidity</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md card-wrapper">
-                            <div class="card single-day">
-                                <div class="card-body">
-                                    <h5 class="card-title">Date</h5>
-                                    <p class="card-text">Temp</p>
-                                    <p class="card-text">Humidity</p>
-                                </div>
-                            </div>
-                        </div> -->
-                    </div>
+                    <div id="forecast-cards" class="row d-flex ml-0 justify-content-between"></div>
                 </div>
             </div>
         </div>
@@ -118,7 +75,6 @@
 
     <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" data-auto-replace-svg="nest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

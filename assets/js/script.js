@@ -1,11 +1,14 @@
 // global variables go here
 // gets today's date
 var date = moment().format('L');
+
 // references to DOM elements go here
 // stores the reference to the <form> element for the event listener
 var searchFormEl = document.querySelector("#search-form");
 // stores the reference to the <input> element in which the user types in a city
 var cityInputEl = document.querySelector("#city-input");
+// stores the reference to the <li> element that saves previously searched cities
+var cityHistoryEl = document.querySelector("#city-history");
 // stores the references to the "today" card
 var todayCardEl = document.querySelector("#today-card");
 var cityNameEl = document.querySelector("#city-name");
@@ -62,12 +65,11 @@ var getCityWeatherToday = function(city) {
 
             // saves the city name
             var displayName = weatherResponse.name;
-            // gets today's date
-            // var date = moment().format('L');
+
             // gets weather icon
             var iconCode = weatherResponse.weather[0].icon;
             var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-            // display city and date
+            // display city, date, and icon
             cityNameEl.textContent = displayName + " (" + date + ")";
             todayIconEl.setAttribute("src", iconUrl);
             
@@ -93,6 +95,84 @@ var getCityWeatherToday = function(city) {
     ;
 }
 
+var displayCityForecast = function(forecast) {
+
+    // clear old data
+    forecastTitleEl.textContent = "";
+    forecastCardsEl.textContent = "";
+
+    // indices 4, 12, 20, 28, 36 are 3PM for each successive day
+    var indicesArray = [4, 12, 20, 28, 36];
+
+    var titleEl = document.createElement("h4");
+    titleEl.textContent = "5-day Forecast";
+    forecastTitleEl.appendChild(titleEl);
+
+    for (var i = 0; i < indicesArray.length; i++) {
+        // adds card for each successive day
+        // wrapper div
+        var wrapperEl = document.createElement("div");
+        wrapperEl.classList = "col-md card-wrapper";
+
+        // card div
+        var cardEl = document.createElement("div");
+        cardEl.classList = "card single-day";
+
+        // card body div
+        var cardBodyEl = document.createElement("div");
+        cardBodyEl.classList = "card-body";
+
+        // card title div aka next date
+        // create container
+        var nextDateEl = document.createElement("h5");
+        nextDateEl.classList = "card-title";
+        // get date and format
+        var dateIndex = indicesArray[i];
+        var responseDate = forecast.list[dateIndex].dt_txt;
+        var dateArray = responseDate.split(" ");
+        var displayDate = dateArray[0];
+        nextDateEl.textContent = displayDate;
+        // append
+        cardBodyEl.appendChild(nextDateEl);
+
+        // icon img
+        // create container
+        var iconImgEl = document.createElement("img");
+        var iconCode = forecast.list[dateIndex].weather[0].icon;
+        var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+        // display city and date
+        iconImgEl.setAttribute("src", iconUrl);     
+        // append               
+        cardBodyEl.appendChild(iconImgEl);
+
+        // temperature p
+        // create container
+        var tempEl = document.createElement("p");
+        tempEl.classList = "card-text";
+        // get temp and convert
+        var getTempinK = forecast.list[dateIndex].main.temp;
+        var tempinF = convert(getTempinK);
+        tempEl.textContent = "Temperature: " + tempinF + "°F";
+        // append
+        cardBodyEl.appendChild(tempEl);
+
+        // humidity p
+        // create container
+        var humidityEl = document.createElement("p");
+        humidityEl.classList = "card-text";
+        // get humidity
+        var humidity = forecast.list[dateIndex].main.humidity;
+        humidityEl.textContent = "Humidity: " + humidity + "%";
+        // append
+        cardBodyEl.appendChild(humidityEl);
+
+        // append containers
+        cardEl.appendChild(cardBodyEl);
+        wrapperEl.appendChild(cardEl);
+        forecastCardsEl.appendChild(wrapperEl);
+    }
+}
+
 // function gets 5-day forecast from api
 var getCityForecast = function(city) {
     // format the api url to accept city search
@@ -100,86 +180,20 @@ var getCityForecast = function(city) {
 
     fetch(apiUrlToday)
         .then(function(forecastResponse) {
-            return forecastResponse.json();
-        })
-        .then(function(forecastResponse) {
-            // adds forecast title
-            var titleEl = document.createElement("h4");
-            titleEl.textContent = "5-day Forecast";
-            forecastTitleEl.appendChild(titleEl);
-
-            console.log(forecastResponse);
-
-            // indices 4, 12, 20, 28, 36 are 3PM for each successive day
-            var indicesArray = [4, 12, 20, 28, 36];
-            // var indicesArray = [4];
-
-            // debugger;
-            
-            for (var i = 0; i < indicesArray.length; i++) {
-                // adds card for each successive day
-                // wrapper div
-                var wrapperEl = document.createElement("div");
-                wrapperEl.classList = "col-md card-wrapper";
-
-                // card div
-                var cardEl = document.createElement("div");
-                cardEl.classList = "card single-day";
-
-                // card body div
-                var cardBodyEl = document.createElement("div");
-                cardBodyEl.classList = "card-body";
-
-                // card title div aka next date
-                // create container
-                var nextDateEl = document.createElement("h5");
-                nextDateEl.classList = "card-title";
-                // get date and format
-                var dateIndex = indicesArray[i];
-                var responseDate = forecastResponse.list[dateIndex].dt_txt;
-                var dateArray = responseDate.split(" ");
-                var displayDate = dateArray[0];
-                nextDateEl.textContent = displayDate;
-                // append
-                cardBodyEl.appendChild(nextDateEl);
-
-                // icon img
-                // create container
-                var iconImgEl = document.createElement("img");
-                var iconCode = forecastResponse.list[dateIndex].weather[0].icon;
-                var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-                // display city and date
-                iconImgEl.setAttribute("src", iconUrl);                    
-                cardBodyEl.appendChild(iconImgEl);
-
-                // temperature p
-                // create container
-                var tempEl = document.createElement("p");
-                tempEl.classList = "card-text";
-                // get temp and convert
-                var getTempinK = forecastResponse.list[dateIndex].main.temp;
-                var tempinF = convert(getTempinK);
-                tempEl.textContent = "Temperature: " + tempinF;
-                // append
-                cardBodyEl.appendChild(tempEl);
-
-                // humidity p
-                // create container
-                var humidityEl = document.createElement("p");
-                humidityEl.classList = "card-text";
-                // get humidity
-                var humidity = forecastResponse.list[dateIndex].main.humidity;
-                humidityEl.textContent = "Humidity: " + humidity;
-                // append
-                cardBodyEl.appendChild(humidityEl);
-
-                // append containers
-                cardEl.appendChild(cardBodyEl);
-                wrapperEl.appendChild(cardEl);
-                forecastCardsEl.appendChild(wrapperEl);
+            if (forecastResponse.ok) {
+                forecastResponse.json().then(function(data) {
+                    displayCityForecast(data);
+                });
             }
         })
+        .catch(function(error) {
+            alert("Unable to connect to GitHub");
+        });
     ;
+}
+
+var saveSearch = function(city) {
+
 }
 
 var formSubmitHandler = function(event) {
@@ -194,6 +208,7 @@ var formSubmitHandler = function(event) {
         getCityWeatherToday(cityName);
         cityInputEl.value = "";
         getCityForecast(cityName);
+        saveSearch(cityName);
     } else {
         alert("Please enter a city");
     }
@@ -201,4 +216,3 @@ var formSubmitHandler = function(event) {
 
 // event listener for submission of search term
 searchFormEl.addEventListener("submit", formSubmitHandler);
-
