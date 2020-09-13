@@ -20,6 +20,8 @@ var todayIconEl = document.querySelector("#today-icon");
 // stores the references to the forecast area
 var forecastTitleEl = document.querySelector("#forecast-title");
 var forecastCardsEl = document.querySelector("#forecast-cards");
+// stores the reference to the <button> element for the event listener
+// var buttonEl = document.querySelector("");
 
 // api key for openweathermap.org
 var apiKey = "9849d30984dfb30a728bbf6105d4f56d";
@@ -201,21 +203,37 @@ var getCityForecast = function(city) {
     ;
 }
 
+function loadHistory() {
+    var getHistory = JSON.parse(localStorage.getItem("search-history"));
+    console.log(getHistory);
+
+    // array to hold search history in local storage if no data exists
+    if (!getHistory) {
+        var getHistory = [];
+        localStorage.setItem("search-history", JSON.stringify(getHistory));
+    }
+
+    for (var i = 0; i < getHistory.length; i++) {
+        // create container to display search history
+        var loadCityEl = document.createElement("button");
+        loadCityEl.classList = "history-button";
+        loadCityEl.textContent = getHistory[i];
+        cityHistoryEl.appendChild(loadCityEl);
+    }
+}
+
 var saveSearch = function(city) {
 
     // create container to display search history
-    // var saveCityEl = document.createElement("li");
-    // saveCityEl.classList = "list-group-item";
-    // saveCityEl.textContent = city;
-    // cityHistoryEl.appendChild(saveCityEl);
-
     var saveCityEl = document.createElement("button");
     saveCityEl.classList = "history-button";
     saveCityEl.textContent = city;
     cityHistoryEl.appendChild(saveCityEl);
 
-    // save to local storage
-    localStorage.setItem("saved-city", city);
+    // add to local storage array
+    var saveHistory = JSON.parse(localStorage.getItem("search-history"));
+    saveHistory.push(city);
+    localStorage.setItem("search-history", JSON.stringify(saveHistory));
 }
 
 var formSubmitHandler = function(event) {
@@ -233,6 +251,8 @@ var formSubmitHandler = function(event) {
         alert("Please enter a city");
     }
 }
+
+loadHistory();
 
 // event listener for submission of search term
 searchFormEl.addEventListener("submit", formSubmitHandler);
