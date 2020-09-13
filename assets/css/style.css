@@ -51,8 +51,15 @@
 }
 
 /* history section styling */
-.history ul li {
+/* .history ul li {
     border-color: var(--border-color);
+} */
+
+.history-button {
+    border-color: var(--border-color);
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /* today row */

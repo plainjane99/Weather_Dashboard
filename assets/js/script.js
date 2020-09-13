@@ -48,7 +48,7 @@ var getCityUvToday = function(latitude,longitude) {
     ;
 }
 
-// function gets today's weather from api
+// function gets and displays today's weather from api
 var getCityWeatherToday = function(city) {
     
     // format the api url to accept city search
@@ -57,7 +57,12 @@ var getCityWeatherToday = function(city) {
 
     fetch(apiUrlToday)
         .then(function(weatherResponse) {
-            return weatherResponse.json();
+            if (weatherResponse.ok) {
+                return weatherResponse.json();
+            } else {
+                alert("Error: Please verify city name and try again.");
+                return;
+            }
         })
         .then(function(weatherResponse) {
             // adds card class to today-card
@@ -65,6 +70,8 @@ var getCityWeatherToday = function(city) {
 
             // saves the city name
             var displayName = weatherResponse.name;
+            // passes city name to save in search history
+            saveSearch(displayName);
 
             // gets weather icon
             var iconCode = weatherResponse.weather[0].icon;
@@ -90,8 +97,9 @@ var getCityWeatherToday = function(city) {
             var cityLatitude = weatherResponse.coord.lat;
             var cityLongitude = weatherResponse.coord.lon;
             getCityUvToday(cityLatitude,cityLongitude);
+
+            getCityForecast(city);
         })
-        
     ;
 }
 
@@ -185,7 +193,7 @@ var getCityForecast = function(city) {
                 forecastResponse.json().then(function(data) {
                     displayCityForecast(data);
                 });
-            }
+            } 
         })
         .catch(function(error) {
             alert("Unable to connect to GitHub");
@@ -196,8 +204,13 @@ var getCityForecast = function(city) {
 var saveSearch = function(city) {
 
     // create container to display search history
-    var saveCityEl = document.createElement("li");
-    saveCityEl.classList = "list-group-item";
+    // var saveCityEl = document.createElement("li");
+    // saveCityEl.classList = "list-group-item";
+    // saveCityEl.textContent = city;
+    // cityHistoryEl.appendChild(saveCityEl);
+
+    var saveCityEl = document.createElement("button");
+    saveCityEl.classList = "history-button";
     saveCityEl.textContent = city;
     cityHistoryEl.appendChild(saveCityEl);
 
@@ -216,8 +229,6 @@ var formSubmitHandler = function(event) {
     if (cityName) {
         getCityWeatherToday(cityName);
         cityInputEl.value = "";
-        getCityForecast(cityName);
-        saveSearch(cityName);
     } else {
         alert("Please enter a city");
     }
