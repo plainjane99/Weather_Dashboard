@@ -104,6 +104,7 @@ var displayCityForecast = function(forecast) {
     // indices 4, 12, 20, 28, 36 are 3PM for each successive day
     var indicesArray = [4, 12, 20, 28, 36];
 
+    // create element for title
     var titleEl = document.createElement("h4");
     titleEl.textContent = "5-day Forecast";
     forecastTitleEl.appendChild(titleEl);
@@ -194,6 +195,14 @@ var getCityForecast = function(city) {
 
 var saveSearch = function(city) {
 
+    // create container to display search history
+    var saveCityEl = document.createElement("li");
+    saveCityEl.classList = "list-group-item";
+    saveCityEl.textContent = city;
+    cityHistoryEl.appendChild(saveCityEl);
+
+    // save to local storage
+    localStorage.setItem("saved-city", city);
 }
 
 var formSubmitHandler = function(event) {
