@@ -34,7 +34,7 @@ function convert(kelvin) {
 // function gets the UV index for today.  api requires search by latitude and longitude.
 var getCityUvToday = function(latitude,longitude) {
     // format the api url for long/lat of user-input city
-    var apiUrlTodayUv = "http://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + latitude + "&lon=" + longitude;
+    var apiUrlTodayUv = "https://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + latitude + "&lon=" + longitude;
 
     fetch(apiUrlTodayUv)
         .then(function(uvResponse) {
@@ -62,7 +62,7 @@ var getCityUvToday = function(latitude,longitude) {
 var getCityWeatherToday = function(city) {
     
     // format the api url to accept city search
-    var apiUrlToday = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+    var apiUrlToday = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
     fetch(apiUrlToday)
         .then(function(weatherResponse) {
@@ -82,7 +82,7 @@ var getCityWeatherToday = function(city) {
 
             // gets weather icon
             var iconCode = weatherResponse.weather[0].icon;
-            var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+            var iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
             // display city, date, and icon
             cityNameEl.textContent = displayName + " (" + date + ")";
             todayIconEl.setAttribute("src", iconUrl);
@@ -156,7 +156,7 @@ var displayCityForecast = function(forecast) {
         // create container
         var iconImgEl = document.createElement("img");
         var iconCode = forecast.list[dateIndex].weather[0].icon;
-        var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+        var iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
         // display city and date
         iconImgEl.setAttribute("src", iconUrl);     
         // append               
@@ -193,7 +193,7 @@ var displayCityForecast = function(forecast) {
 // function gets 5-day forecast from api
 var getCityForecast = function(city) {
     // format the api url to accept city search
-    var apiUrlToday = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey;
+    var apiUrlToday = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey;
 
     fetch(apiUrlToday)
         .then(function(forecastResponse) {
