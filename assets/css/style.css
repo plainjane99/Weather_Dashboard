@@ -10,7 +10,7 @@
     justify-content: center;
 }
 
-/* header styling */
+/* jumbotron banner */
 .title {
     font-size: 24px;
     color: var(--background-text);
@@ -19,25 +19,26 @@
 }
 
 /* left hand column */
+/* search area */
 .search-form {
     background-color: #e6e6e6;
     padding-bottom: 30px;
     padding-left: 20px;
 }
 
-/* form label styling */
+/* search title */
 .form-group label {
     font-weight: bold;
     margin-top: 8px;
 }
 
-/* input box styling */
+/* search box */
 .form-group input {
     border-radius: 3px;
     border-color: var(--border-color);
 }
 
-/* make the search icon blue */
+/* make the search button blue */
 .button {
     background-color: var(--background-color);
     color: var(--background-text);
@@ -52,11 +53,7 @@
     display: block;
 }
 
-/* history section styling */
-/* .history ul li {
-    border-color: var(--border-color);
-} */
-
+/* user-saved city location buttons */
 .history-button {
     border-color: var(--border-color);
     border-radius: 5px;
@@ -64,7 +61,7 @@
     padding-bottom: 10px;
 }
 
-/* today row */
+/* today card */
 .today {
     margin-top: 10px;
 }
@@ -128,4 +125,3 @@
     border-color: var(--border-color);
     color: var(--background-text);
 }
-
