@@ -20,8 +20,6 @@ var todayIconEl = document.querySelector("#today-icon");
 // stores the references to the forecast area
 var forecastTitleEl = document.querySelector("#forecast-title");
 var forecastCardsEl = document.querySelector("#forecast-cards");
-// stores the reference to the <button> element for the event listener
-// var buttonEl = document.querySelector("");
 
 // api key for openweathermap.org
 var apiKey = "9849d30984dfb30a728bbf6105d4f56d";
@@ -46,6 +44,16 @@ var getCityUvToday = function(latitude,longitude) {
             var index = uvResponse.value;
             var indexRounded = Math.round(index);
             todayUvIndexEl.textContent = "UV Index: " + indexRounded;
+
+            if (indexRounded < 3) {
+                todayUvIndexEl.classList = "favorable";
+            }
+            else if (indexRounded > 7) {
+                todayUvIndexEl.classList = "severe";
+            }
+            else {
+                todayUvIndexEl.classList = "moderate";
+            }
         })
     ;
 }
@@ -55,7 +63,6 @@ var getCityWeatherToday = function(city) {
     
     // format the api url to accept city search
     var apiUrlToday = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
-    console.log(apiUrlToday);
 
     fetch(apiUrlToday)
         .then(function(weatherResponse) {
@@ -72,8 +79,6 @@ var getCityWeatherToday = function(city) {
 
             // saves the city name
             var displayName = weatherResponse.name;
-            // passes city name to save in search history
-            saveSearch(displayName);
 
             // gets weather icon
             var iconCode = weatherResponse.weather[0].icon;
@@ -105,14 +110,15 @@ var getCityWeatherToday = function(city) {
     ;
 }
 
+// function displays the 5-day forecast from received data
 var displayCityForecast = function(forecast) {
 
     // clear old data
     forecastTitleEl.textContent = "";
     forecastCardsEl.textContent = "";
 
-    // indices 4, 12, 20, 28, 36 are 3PM for each successive day
-    var indicesArray = [4, 12, 20, 28, 36];
+    // indices 5, 13, 21, 29, 37 are 3PM for each successive day
+    var indicesArray = [5, 13, 21, 29, 37];
 
     // create element for title
     var titleEl = document.createElement("h4");
@@ -203,6 +209,7 @@ var getCityForecast = function(city) {
     ;
 }
 
+// function loads stored city from local storage
 function loadHistory() {
     var getHistory = JSON.parse(localStorage.getItem("search-history"));
     console.log(getHistory);
@@ -222,32 +229,50 @@ function loadHistory() {
     }
 }
 
-var saveSearch = function(city) {
-
+// function creates button representing stored city
+var createHistoryButton = function(city) {
     // create container to display search history
     var saveCityEl = document.createElement("button");
     saveCityEl.classList = "history-button";
     saveCityEl.textContent = city;
     cityHistoryEl.appendChild(saveCityEl);
+}
 
+// function saves newly input city
+var saveSearch = function(city) {
     // add to local storage array
     var saveHistory = JSON.parse(localStorage.getItem("search-history"));
     saveHistory.push(city);
     localStorage.setItem("search-history", JSON.stringify(saveHistory));
+
+    createHistoryButton(city);
 }
 
+// function passes city stored from local storage to main functions
+var loadFromButton = function(event) {
+    var buttonSearchTerm = event.target.textContent;
+    console.log(buttonSearchTerm);
+
+    getCityWeatherToday(buttonSearchTerm);
+}
+
+// handles user input into search field
 var formSubmitHandler = function(event) {
     event.preventDefault();
 
     // sets cityName to the value input by the user
     var cityName = cityInputEl.value.trim();
-    console.log(cityName);
 
     // input is passed to getCityWeather function then clears the form
     if (cityName) {
         getCityWeatherToday(cityName);
+        // clears out the search bar
         cityInputEl.value = "";
-    } else {
+
+        // save city to search history
+        saveSearch(cityName);
+    } 
+    else {
         alert("Please enter a city");
     }
 }
@@ -256,3 +281,5 @@ loadHistory();
 
 // event listener for submission of search term
 searchFormEl.addEventListener("submit", formSubmitHandler);
+// event listener for click of loaded history buttons
+cityHistoryEl.addEventListener("click", loadFromButton);

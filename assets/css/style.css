@@ -19,8 +19,10 @@
 }
 
 /* left hand column */
-.left-column {
+.search-form {
     background-color: #e6e6e6;
+    padding-bottom: 30px;
+    padding-left: 20px;
 }
 
 /* form label styling */
@@ -75,6 +77,34 @@
 
 #today-icon {
     margin-top: -5px;
+}
+
+/* UV index */
+.favorable {
+    background-color: green;
+    color: var(--background-text);
+    font-weight: bold;
+    border-radius: 3px;
+    display: inline;
+    padding: 7px;
+}
+
+.moderate {
+    background-color: yellow;
+    color: black;
+    font-weight: bold;
+    border-radius: 3px;
+    display: inline;
+    padding: 7px;
+}
+
+.severe {
+    background-color: red;
+    color: var(--background-text);
+    font-weight: bold;
+    border-radius: 3px;
+    display: inline;
+    padding: 7px;
 }
 
 /* 5-day title */
